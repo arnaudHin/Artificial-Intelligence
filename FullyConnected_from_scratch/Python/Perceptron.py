@@ -3,11 +3,13 @@
 ## Date : Oct 21 2021
 ## Goal : Understand who works a unique neuron learning (=perceptron) and matrix computations
 ## Project : Build learning neuron functions with matrix (only vectorized computations)
-
+## This unique neurone stands for the famous LINEAR REGRESSION, developed to resolve linear problems ! 
 
 import numpy as np
 from sklearn.datasets import make_blobs
 import matplotlib.pyplot as plt
+from math import sqrt
+
 
 """
 Perceptron : 
@@ -44,6 +46,13 @@ def create_dataset():
 
 def create_weights(X, num_neurones):
     num_features = X.shape[1]
+    W = np.random.randn(num_features, num_neurones)
+    return W
+
+
+def create_weights_stf(X, num_neurones):
+    num_features = X.shape[1]
+    epsilon = sqrt()
     W = np.random.randn(num_features, num_neurones)
     return W
 
@@ -94,7 +103,7 @@ def delta_computation(X, A, Y):
 def show_loss(loss):
 
     print("loss final : ",loss[len(loss)-1] )
-
+    #np.arange( a ) = create int np.array from 0 to (a-1) with shift of 1 
     plt.plot( np.arange( len(loss) ) , loss   )
     plt.show()
 
@@ -104,11 +113,14 @@ def run_artificial_neuron(X, y, iter_n, learning_rate):
     loss = []
 
     for i in range(iter_n):
-        Z = forward(inputs=X, weigths=W)
+        Z = forward(inputs=X, weigths=W) 
         A = Sigmoid(Z)
         loss.append( loss_function(A, y) )
         dW = delta_computation(X, A, y)
         W = batch_gradient_descent(W=W, dW=dW, alpha=learning_rate)
+
+    print(W[0])
+    print(W[1])
 
     show_loss(loss)
 
